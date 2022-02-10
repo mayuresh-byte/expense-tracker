@@ -10,7 +10,7 @@ const Home = () => {
     const [Income, setIncome] = useState("");
     const [Exp, setExp] = useState("");
     const [History, setHistory] = useState([]);
-    
+
     console.log(History);
 
     const AddHistory = (elemarr) => {
@@ -30,6 +30,11 @@ const Home = () => {
             newIncome = Number(newIncome)
             setIncome(newIncome);
 
+            let tempHistory = [Desc, Amt]
+            AddHistory(tempHistory);
+            setDesc("");
+            setShowForm(false);
+
         }
         else {
             if (Balance <= 0) {
@@ -37,18 +42,25 @@ const Home = () => {
             }
             else {
                 let newBal = Balance - Amt;
-                setBalance(newBal);
-                let newExp = Exp + Amt;
-                newExp = Number(newExp)
-                setExp(newExp);
+                newBal = Number(newBal);
+                if (newBal < 0) {
+                    alert("Your dont have enough fund to continue the transaction...You can add money by clicking on add momey button")
+                }
+                else {
+                    setBalance(newBal);
+                    let newExp = Exp + Amt;
+                    newExp = Number(newExp)
+                    setExp(newExp);
+                    let tempHistory = [Desc, Amt]
+                    AddHistory(tempHistory);
+                    setDesc("");
+                    setShowForm(false);
+                }
+
             }
 
         }
-        let tempHistory = [Desc, Amt]
-        
-        AddHistory(tempHistory);
-        setDesc("");
-        setShowForm(false);
+
 
     }
 
